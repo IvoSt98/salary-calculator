@@ -44,16 +44,29 @@ def calculate_and_input_expense(income):
     living = 0.2 * income
     return needs, savings, living
 
+def add_new_row(info_income):
+   
+    add_new_row = input("Do you want to add a new row for 'Needs'? (yes/no): ")
+    if add_new_row == 'yes':
+        try:
+            new_needs = input("Enter new name value: ")
+            new=input("Enter new value: ")
+            new_row = [f"{new_needs}", f"${new}", "-", "-"]
+            info_income.append(new_row)
+        except ValueError:
+            print("Invalid input. Please enter a numerical value.")
+
 def build_table(needs, savings, living):
 
     """ The def add the data from def calculate_and_input_expense() and make
     it in a table. """
-    
-    table = ["Needs", "Savings/Investments", "Living Expenses"]
-    info_income = [[f"${needs}", f"${savings}", f"${living}"]]
-    print(tabulate(info_income, headers=table, tablefmt="simple"))
 
-start()
+    table = ["Name", "Needs", "Name", "Savings/Investments","Name", "Living Expenses"]
+    info_income = [[{"-"}, f"${needs}", {"-"}, f"${savings}", {"-"}, f"${living}"]]
+    add_new_row(info_income)
+    print(tabulate(info_income, headers=table, tablefmt="simple"))
+   
+# start()
 income = get_income()
 needs, savings, living = calculate_and_input_expense(income)
 build_table(needs, savings, living)
