@@ -45,18 +45,28 @@ def calculate_and_input_expense(income):
     return needs, savings, living
 
 def add_new_needs(needs_row):
+
     """ The def first will ask the user to aadd a new row or not.
-        if the asnwer is yes it will be asked to add new name and sum. """
+        if the asnwer is yes it will be asked to add new name and sum.
+        If statement to mamke the user to use only alphabetical characters.
+         """
+
+    while True:   
+        add_new_row = input("Do you want to add a new row for 'Needs'? (yes/no): ")
+        if add_new_row == 'yes':
+            try:
+                new_name = input("Enter new name for Needs: ") 
+                if not new_name.isalpha():
+                    print("Please enter only alphabetical characters for name.")
+                    return add_new_needs(needs_row)
+                new_sum = float(input("Enter new value: "))
+                new_row = [f"{new_name}", f"${new_sum}", "-", "-", "-", "-"]
+                needs_row.append(new_row)
+            except ValueError:
+                print("Invalid input. Please enter a numerical value.")
+        else:
+            break
         
-    add_new_row = input("Do you want to add a new row for 'Needs'? (yes/no): ")
-    if add_new_row == 'yes':
-        try:
-            new_name = input("Enter new name value: ")
-            new_sum = input("Enter new value: ")
-            new_row = [f"{new_name}", f"${new_sum}", "-", "-", "-", "-"]
-            needs_row.append(new_row)
-        except ValueError:
-            print("Invalid input. Please enter a numerical value.")
 
 def build_table(needs, savings, living):
 
