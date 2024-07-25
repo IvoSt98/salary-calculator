@@ -3,7 +3,8 @@ from tabulate import tabulate
 
 def start():
 
-    """ The function expalin how the program it's working and for what it is.
+    """ 
+    The function expalin how the program it's working and for what it is.
     """
    
     print("     Welcome to Your Salary/Income Calculator!\n     ")
@@ -20,8 +21,10 @@ def start():
 
 def get_income():
     
-    """ The function calculate the sum to be always float, if it's a string it'll be 
-    displayed error, if it's less then 4 digits it will print again error message"""
+    """ 
+    The function calculate the sum to be always float, if it's a string it'll be 
+    displayed error, if it's less then 4 digits it will print again error message
+    """
 
     while True: 
         try:
@@ -36,8 +39,10 @@ def get_income():
      
 def calculate_and_input_expense(income):
 
-    """ The def calculate the month income in % for needs, savings
-    and living"""
+    """ 
+    The def calculate the month income in % for needs, savings
+    and living
+    """
 
     needs = 0.4 * income
     savings = 0.4 * income
@@ -46,10 +51,11 @@ def calculate_and_input_expense(income):
 
 def add_new_needs(needs_row):
 
-    """ The def first will ask the user to aadd a new row or not.
-        if the asnwer is yes it will be asked to add new name and sum.
-        If statement to mamke the user to use only alphabetical characters.
-         """
+    """ 
+    The def first will ask the user to aadd a new row or not.
+    if the asnwer is yes it will be asked to add new name and sum.
+    If statement to mamke the user to use only alphabetical characters.
+    """
 
     while True:   
         add_new_row = input("Do you want to add a new row for 'Needs'? (yes/no): ")
@@ -66,20 +72,61 @@ def add_new_needs(needs_row):
                 print("Invalid input. Please enter a numerical value.")
         else:
             break
+            #main_menu()
+            
         
 
 def build_table(needs, savings, living):
 
-    """ The def add the data from def calculate_and_input_expense() and make
-    it in a table. """
+    """ 
+    The def add the data from def calculate_and_input_expense() and make
+    it in a table.
+     """
 
     table = ["Name", "Needs", "Name", "Savings/Investments","Name", "Living Expenses"]
     info_income = [[f"{"-"}", f"${needs}", f"{"-"}", f"${savings}", f"{"-"}", f"${living}"]]
     add_new_needs(info_income)
     print(tabulate(info_income, headers=table, tablefmt="simple"))
    
-# start()
+
+""" 
+The idea for the main_menu() it's from budget-buddy project- 
+https://budget-buddy-expense-tracker-f207bb189dc1.herokuapp.com/
+"""
+def main_menu():
+
+    """ Runs the navigation menu. Give a choice to the user to choose 
+    from 4 different options. When the user make a choise it will be send
+    to the proper function.
+    """
+
+    while True:
+        print()
+        print("Please select one of the following options:\n")
+        print()
+        print("1. Add Needs:")
+        print("2. Add Savings:")
+        print("3. Add Living expences:")
+        print("4. Stop additing and see the result:")
+        try:
+            user_input = input("- ")
+            if user_input == "1":
+                build_table(needs, savings, living)
+                break
+            elif user_input == "2":
+                break
+            elif user_input == "3":
+                break
+            else:
+                raise ValueError("")
+        except ValueError as e:
+            print()
+            print(
+                "Invalid input: Please select one "
+                "of the options (1-3).\n")
+            
+start()
 income = get_income()
 needs, savings, living = calculate_and_input_expense(income)
-build_table(needs, savings, living)
+main_menu()
 
