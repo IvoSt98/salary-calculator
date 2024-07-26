@@ -73,10 +73,33 @@ def add_new_needs(needs_row):
         else:
             break
             #main_menu()
-            
-        
 
-def build_table(needs, savings, living):
+def add_new_savings(savings_row):
+
+    """ 
+    The def first will ask the user to add a new row or not.
+    if the answer is yes it will be asked to add new name and sum.
+    If statement to mamke the user to use only alphabetical characters.
+    """
+
+    while True:   
+        add_new_row = input("Do you want to add a new row for 'Savings'? (yes/no): ")
+        if add_new_row == 'yes':
+            try:
+                new_name = input("Enter new name for Savings: ") 
+                if not new_name.isalpha():
+                    print("Please enter only alphabetical characters for name.")
+                    return add_new_savings(savings_row)
+                new_sum = float(input("Enter new value: "))
+                new_row = ["-", "-", f"{new_name}", f"${new_sum}", "-", "-"]
+                savings_row.append(new_row)
+            except ValueError:
+                print("Invalid input. Please enter a numerical value.")
+        else:
+            break
+            #main_menu()
+            
+def build_table(needs, savings, living, choice):
 
     """ 
     The def add the data from def calculate_and_input_expense() and make
@@ -85,21 +108,19 @@ def build_table(needs, savings, living):
 
     table = ["Name", "Needs", "Name", "Savings/Investments","Name", "Living Expenses"]
     info_income = [[f"{"-"}", f"${needs}", f"{"-"}", f"${savings}", f"{"-"}", f"${living}"]]
-    add_new_needs(info_income)
+    if choice == 1:
+        add_new_needs(info_income)
+    elif choice == 2:
+        add_new_savings(info_income)
     print(tabulate(info_income, headers=table, tablefmt="simple"))
-   
 
-""" 
-The idea for the main_menu() it's from budget-buddy project- 
-https://budget-buddy-expense-tracker-f207bb189dc1.herokuapp.com/
-"""
 def main_menu():
 
     """ Runs the navigation menu. Give a choice to the user to choose 
     from 4 different options. When the user make a choise it will be send
     to the proper function.
     """
-
+    
     while True:
         print()
         print("Please select one of the following options:\n")
@@ -108,24 +129,20 @@ def main_menu():
         print("2. Add Savings:")
         print("3. Add Living expences:")
         print("4. Stop additing and see the result:")
+
         try:
             user_input = input("- ")
-            if user_input == "1":
-                build_table(needs, savings, living)
-                break
-            elif user_input == "2":
-                break
-            elif user_input == "3":
+            if user_input in ["1", "2", "3", "4"]:
+                choice = int(user_input)
+                build_table(needs, savings, living, choice)
                 break
             else:
                 raise ValueError("")
         except ValueError as e:
             print()
-            print(
-                "Invalid input: Please select one "
-                "of the options (1-3).\n")
-            
-start()
+            print("Invalid input: Please select one of the options (1-4).\n")
+     
+#start()
 income = get_income()
 needs, savings, living = calculate_and_input_expense(income)
 main_menu()
