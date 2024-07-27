@@ -73,6 +73,7 @@ def add_new_needs(needs_row):
         else:
             break
             #main_menu()
+            
 
 def add_new_savings(savings_row):
 
@@ -98,6 +99,31 @@ def add_new_savings(savings_row):
         else:
             break
             #main_menu()
+
+def add_new_living(living_row):
+
+    """ 
+    The def first will ask the user to add a new row or not.
+    if the answer is yes it will be asked to add new name and sum.
+    If statement to mamke the user to use only alphabetical characters.
+    """
+
+    while True:   
+        add_new_row = input("Do you want to add a new row for 'living'? (yes/no): ")
+        if add_new_row == 'yes':
+            try:
+                new_name = input("Enter new name for living: ") 
+                if not new_name.isalpha():
+                    print("Please enter only alphabetical characters for name.")
+                    return add_new_living(living_row)
+                new_sum = float(input("Enter new value: "))
+                new_row = ["-", "-", "-", "-", f"{new_name}", f"${new_sum}"]
+                living_row.append(new_row)
+            except ValueError:
+                print("Invalid input. Please enter a numerical value.")
+        else:
+            break
+            #main_menu()
             
 def build_table(needs, savings, living, choice):
 
@@ -112,6 +138,8 @@ def build_table(needs, savings, living, choice):
         add_new_needs(info_income)
     elif choice == 2:
         add_new_savings(info_income)
+    elif choice == 3:
+        add_new_living(info_income)
     print(tabulate(info_income, headers=table, tablefmt="simple"))
 
 def main_menu():
@@ -132,7 +160,7 @@ def main_menu():
 
         try:
             user_input = input("- ")
-            if user_input in ["1", "2", "3", "4"]:
+            if user_input in ["1", "2", "3"]:
                 choice = int(user_input)
                 build_table(needs, savings, living, choice)
                 break
