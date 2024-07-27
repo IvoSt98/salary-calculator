@@ -49,12 +49,13 @@ def calculate_and_input_expense(income):
     living = 0.2 * income
     return needs, savings, living
 
-def add_new_needs(needs_row):
+def new_needs(needs_row):
 
     """ 
-    The def first will ask the user to aadd a new row or not.
-    if the asnwer is yes it will be asked to add new name and sum.
-    If statement to mamke the user to use only alphabetical characters.
+    The def first will ask the user to add new row or not.
+    If the asnwer is yes it will be asked to add new name and sum.
+    Print to approve that user will use the right alphabetical and
+    numerical value.
     """
 
     while True:   
@@ -64,7 +65,7 @@ def add_new_needs(needs_row):
                 new_name = input("Enter new name for Needs: ") 
                 if not new_name.isalpha():
                     print("Please enter only alphabetical characters for name.")
-                    return add_new_needs(needs_row)
+                    return new_needs(needs_row)
                 new_sum = float(input("Enter new value: "))
                 new_row = [f"{new_name}", f"${new_sum}", "-", "-", "-", "-"]
                 needs_row.append(new_row)
@@ -75,12 +76,13 @@ def add_new_needs(needs_row):
             #main_menu()
             
 
-def add_new_savings(savings_row):
+def new_savings(savings_row):
 
     """ 
-    The def first will ask the user to add a new row or not.
-    if the answer is yes it will be asked to add new name and sum.
-    If statement to mamke the user to use only alphabetical characters.
+    The def first will ask the user to add new row or not.
+    If the asnwer is yes it will be asked to add new name and sum.
+    Print to approve that user will use the right alphabetical and
+    numerical value.
     """
 
     while True:   
@@ -90,7 +92,7 @@ def add_new_savings(savings_row):
                 new_name = input("Enter new name for Savings: ") 
                 if not new_name.isalpha():
                     print("Please enter only alphabetical characters for name.")
-                    return add_new_savings(savings_row)
+                    return new_savings(savings_row)
                 new_sum = float(input("Enter new value: "))
                 new_row = ["-", "-", f"{new_name}", f"${new_sum}", "-", "-"]
                 savings_row.append(new_row)
@@ -100,12 +102,13 @@ def add_new_savings(savings_row):
             break
             #main_menu()
 
-def add_new_living(living_row):
+def new_living(living_row):
 
     """ 
-    The def first will ask the user to add a new row or not.
-    if the answer is yes it will be asked to add new name and sum.
-    If statement to mamke the user to use only alphabetical characters.
+    The def first will ask the user to add new row or not.
+    If the asnwer is yes it will be asked to add new name and sum.
+    Print to approve that user will use the right alphabetical and
+    numerical value.
     """
 
     while True:   
@@ -115,7 +118,7 @@ def add_new_living(living_row):
                 new_name = input("Enter new name for living: ") 
                 if not new_name.isalpha():
                     print("Please enter only alphabetical characters for name.")
-                    return add_new_living(living_row)
+                    return new_living(living_row)
                 new_sum = float(input("Enter new value: "))
                 new_row = ["-", "-", "-", "-", f"{new_name}", f"${new_sum}"]
                 living_row.append(new_row)
@@ -130,16 +133,17 @@ def build_table(needs, savings, living, choice):
     """ 
     The def add the data from def calculate_and_input_expense() and make
     it in a table.
+    After that will add every option from def main() to the table.
      """
 
     table = ["Name", "Needs", "Name", "Savings/Investments","Name", "Living Expenses"]
     info_income = [[f"{"-"}", f"${needs}", f"{"-"}", f"${savings}", f"{"-"}", f"${living}"]]
     if choice == 1:
-        add_new_needs(info_income)
+        new_needs(info_income)
     elif choice == 2:
-        add_new_savings(info_income)
+        new_savings(info_income)
     elif choice == 3:
-        add_new_living(info_income)
+        new_living(info_income)
     print(tabulate(info_income, headers=table, tablefmt="simple"))
 
 def main_menu():
